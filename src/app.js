@@ -1,6 +1,6 @@
 // Punto de entrada de la aplicación — Routing SPA con History API (Etapa 5)
 
-import { getCharacterById } from './characters.js';
+import { initChat, selectCharacter, refreshChatView } from './chat.js';
 
 const ROUTES = {
   '/': 'home',
@@ -10,21 +10,6 @@ const ROUTES = {
 
 const DEFAULT_PATH = '/';
 
-// Personaje elegido en la sesión actual (todavía no hay chat real: esto
-// es solo el estado mínimo necesario para dar feedback de qué personaje
-// se seleccionó antes de llegar a la Etapa 6).
-let selectedCharacterId = null;
-
-function updateChatHeading() {
-  const heading = document.getElementById('chat-character-name');
-  if (!heading) return;
-
-  const character = selectedCharacterId ? getCharacterById(selectedCharacterId) : null;
-  heading.textContent = character
-    ? `Chateando con ${character.name}`
-    : 'Elegí un personaje para empezar';
-}
-
 function renderRoute() {
   const path = window.location.pathname;
   const activeSectionId = ROUTES[path] ?? ROUTES[DEFAULT_PATH];
@@ -33,7 +18,7 @@ function renderRoute() {
     section.hidden = section.id !== activeSectionId;
   });
 
-  updateChatHeading();
+  refreshChatView();
 }
 
 function navigateTo(path) {
@@ -55,10 +40,7 @@ function handleCharacterCardClick(event) {
   const button = event.target.closest('.select-character-btn');
   if (!button) return;
 
-  // Guardamos qué personaje se eligió para poder mostrar feedback
-  // ("Chateando con X") al llegar a /chat. El chat en sí (mensajes,
-  // historial, Gemini) se implementa recién en la Etapa 6 y siguientes.
-  selectedCharacterId = button.dataset.character;
+  selectCharacter(button.dataset.character);
   navigateTo('/chat');
 }
 
@@ -73,6 +55,7 @@ function initRouter() {
   document.addEventListener('click', handleCharacterCardClick);
   window.addEventListener('popstate', renderRoute);
 
+  initChat();
   renderRoute();
 }
 
