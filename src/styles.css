@@ -1,1 +1,252 @@
-/* Estilos — se implementan en la Etapa 4 (CSS Mobile First) */
+/* ============================================
+   Variables globales y reset
+   ============================================ */
+:root {
+  --color-bg: #f7f5f2;
+  --color-surface: #ffffff;
+  --color-primary: #ff6f3c;
+  --color-primary-dark: #e05a2b;
+  --color-header-bg: #22223b;
+  --color-header-text: #f7f5f2;
+  --color-text: #1f2933;
+  --color-text-muted: #52606d;
+  --color-border: #e4e7eb;
+  --radius: 12px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --spacing: 1rem;
+  --font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+/* ============================================
+   Header
+   ============================================ */
+.site-header {
+  background-color: var(--color-header-bg);
+  color: var(--color-header-text);
+  padding: var(--spacing);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.site-title {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.main-nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.main-nav a {
+  color: var(--color-header-text);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  border-bottom-color: var(--color-primary);
+}
+
+/* ============================================
+   Layout general
+   ============================================ */
+#app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--spacing);
+}
+
+.page {
+  margin-bottom: 2.5rem;
+}
+
+.page h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================
+   Botones
+   ============================================ */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.65rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: var(--color-primary-dark);
+}
+
+/* ============================================
+   Home — grilla de personajes
+   ============================================ */
+.character-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.character-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.25rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.character-avatar {
+  font-size: 2.5rem;
+}
+
+.character-name {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.character-tagline {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  flex-grow: 1;
+}
+
+.select-character-btn {
+  width: 100%;
+}
+
+/* ============================================
+   About
+   ============================================ */
+#about p {
+  max-width: 65ch;
+}
+
+.character-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  list-style: disc;
+}
+
+/* ============================================
+   Chat
+   ============================================ */
+#chat {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  max-height: 600px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.chat-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.chat-input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.site-footer {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  padding: 1.5rem var(--spacing);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ============================================
+   Tablet (min-width: 600px)
+   ============================================ */
+@media (min-width: 600px) {
+  .site-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .character-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============================================
+   Desktop (min-width: 1024px)
+   ============================================ */
+@media (min-width: 1024px) {
+  .site-title {
+    font-size: 1.5rem;
+  }
+
+  .page h2 {
+    font-size: 1.75rem;
+  }
+
+  .character-card {
+    padding: 1.5rem;
+  }
+}
