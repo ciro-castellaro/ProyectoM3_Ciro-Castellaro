@@ -172,7 +172,10 @@ ul {
 /* ============================================
    Chat
    ============================================ */
-#chat {
+/* :not([hidden]) evita que este display:flex le gane por especificidad
+   al [hidden] { display: none } del navegador cuando el router oculta
+   la sección */
+#chat:not([hidden]) {
   display: flex;
   flex-direction: column;
   height: 70vh;
