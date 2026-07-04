@@ -1,0 +1,19 @@
+{
+  "name": "peter-griffin-chat",
+  "version": "1.0.0",
+  "description": "SPA para chatear con Peter Griffin (Family Guy) usando Google Gemini AI.",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vercel": "^54.20.1",
+    "vitest": "^4.1.9"
+  }
+}
+
