@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat con Personajes de Family Guy</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1 class="site-title">Chat con Personajes de Family Guy</h1>
+      <nav class="main-nav">
+        <a href="/" data-link>Home</a>
+        <a href="/chat" data-link>Chat</a>
+        <a href="/about" data-link>About</a>
+      </nav>
+    </header>
+
+    <main id="app">
+      <section id="home" class="page">
+        <h2>¡Bienvenido a Quahog!</h2>
+        <p>
+          Elegí con qué personaje de Family Guy querés chatear. Cada uno
+          tiene su propia personalidad, forma de hablar y sentido del humor.
+        </p>
+
+        <div class="character-grid">
+          <article class="character-card" data-character="peter">
+            <span class="character-avatar" aria-hidden="true">🍺</span>
+            <h3 class="character-name">Peter Griffin</h3>
+            <p class="character-tagline">
+              Padre de familia, amante de la cerveza y metido en líos absurdos.
+            </p>
+            <button class="btn-primary select-character-btn" type="button" data-character="peter">
+              Chatear con Peter
+            </button>
+          </article>
+
+          <article class="character-card" data-character="stewie">
+            <span class="character-avatar" aria-hidden="true">👶</span>
+            <h3 class="character-name">Stewie Griffin</h3>
+            <p class="character-tagline">
+              Bebé genio con acento sofisticado y planes de dominación mundial.
+            </p>
+            <button class="btn-primary select-character-btn" type="button" data-character="stewie">
+              Chatear con Stewie
+            </button>
+          </article>
+
+          <article class="character-card" data-character="brian">
+            <span class="character-avatar" aria-hidden="true">🐶</span>
+            <h3 class="character-name">Brian Griffin</h3>
+            <p class="character-tagline">
+              El perro intelectual de la familia, aspirante a escritor.
+            </p>
+            <button class="btn-primary select-character-btn" type="button" data-character="brian">
+              Chatear con Brian
+            </button>
+          </article>
+
+          <article class="character-card" data-character="lois">
+            <span class="character-avatar" aria-hidden="true">👩</span>
+            <h3 class="character-name">Lois Griffin</h3>
+            <p class="character-tagline">
+              La voz de la razón (y la paciencia) de la familia.
+            </p>
+            <button class="btn-primary select-character-btn" type="button" data-character="lois">
+              Chatear con Lois
+            </button>
+          </article>
+        </div>
+      </section>
+
+      <section id="about" class="page">
+        <h2>Sobre el proyecto</h2>
+        <p>
+          Esta es una Single Page Application (SPA) desarrollada como Proyecto
+          Integrador 3, construida con HTML, CSS y JavaScript Vanilla (ES
+          Modules). Permite conversar con personajes ficticios mediante Google
+          Gemini AI, protegiendo la API Key a través de una Serverless Function
+          en Vercel.
+        </p>
+
+        <h3>Sobre los personajes</h3>
+        <p>
+          Los personajes disponibles pertenecen a la serie animada
+          "Family Guy" (propiedad de Fox/20th Television). Fueron adaptados
+          para este proyecto educativo, sin fines comerciales, manteniendo
+          su humor característico dentro de límites de contenido seguros
+          y apropiados:
+        </p>
+        <ul class="character-list">
+          <li><strong>Peter Griffin</strong> — impulsivo, leal, amante de la cerveza y la TV.</li>
+          <li><strong>Stewie Griffin</strong> — bebé genio, sarcástico y grandilocuente.</li>
+          <li><strong>Brian Griffin</strong> — el perro intelectual, cínico pero de buen corazón.</li>
+          <li><strong>Lois Griffin</strong> — la madre paciente y sensata de la familia.</li>
+        </ul>
+      </section>
+
+      <section id="chat" class="page">
+        <h2 id="chat-character-name">Elegí un personaje para empezar</h2>
+        <div id="chat-messages" class="chat-messages"></div>
+        <form id="chat-form" class="chat-form">
+          <input
+            type="text"
+            id="chat-input"
+            class="chat-input"
+            placeholder="Escribí tu mensaje..."
+            autocomplete="off"
+          />
+          <button type="submit" id="send-btn" class="btn-primary">
+            Enviar
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>ComicSansCon 2026 — Todos los derechos reservados.</p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
