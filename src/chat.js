@@ -10,9 +10,7 @@ const messagesByCharacter = {};
 let selectedCharacterId = null;
 
 // Evita mandar un segundo mensaje mientras todavía se espera la
-// respuesta de Gemini (manejo funcional del estado de "loading" — el
-// tratamiento visual, como deshabilitar el botón, se agrega en la
-// Etapa 10).
+// respuesta de Gemini.
 let isWaitingForReply = false;
 
 function getMessages(characterId) {
@@ -92,6 +90,31 @@ function appendErrorBubble(text) {
   container.scrollTop = container.scrollHeight;
 }
 
+// Indicador de "escribiendo...": tampoco se guarda en el historial,
+// por la misma razón que appendErrorBubble.
+function appendTypingIndicator(characterName) {
+  const container = document.getElementById('chat-messages');
+  if (!container) return;
+
+  const bubble = document.createElement('div');
+  bubble.id = 'typing-indicator';
+  bubble.classList.add('message', 'message-character', 'message-typing');
+  bubble.textContent = `${characterName} está escribiendo...`;
+  container.appendChild(bubble);
+  container.scrollTop = container.scrollHeight;
+}
+
+function removeTypingIndicator() {
+  document.getElementById('typing-indicator')?.remove();
+}
+
+function setFormDisabled(disabled) {
+  const input = document.getElementById('chat-input');
+  const button = document.getElementById('send-btn');
+  if (input) input.disabled = disabled;
+  if (button) button.disabled = disabled;
+}
+
 async function handleChatSubmit(event) {
   event.preventDefault();
 
@@ -111,14 +134,20 @@ async function handleChatSubmit(event) {
   input.value = '';
 
   isWaitingForReply = true;
+  setFormDisabled(true);
+  appendTypingIndicator(character.name);
+
   try {
     const reply = await fetchCharacterReply(character.systemPrompt, history, text);
+    removeTypingIndicator();
     addMessage('character', reply);
   } catch (error) {
     console.error('Error al obtener respuesta de Gemini:', error);
+    removeTypingIndicator();
     appendErrorBubble('Uy, se me cruzaron los cables. Probá de nuevo en un rato.');
   } finally {
     isWaitingForReply = false;
+    setFormDisabled(false);
   }
 }
 
