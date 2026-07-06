@@ -2,6 +2,12 @@
 // real con Gemini a través de la Serverless Function api/functions.js).
 
 import { getCharacterById } from './characters.js';
+import {
+  getChatHeadingText,
+  isValidMessage,
+  sanitizeMessage,
+  fetchCharacterReply,
+} from './utils.js';
 
 // Historial en memoria, separado por personaje, para que cambiar de
 // personaje no mezcle las conversaciones.
@@ -20,34 +26,12 @@ function getMessages(characterId) {
   return messagesByCharacter[characterId];
 }
 
-async function fetchCharacterReply(systemPrompt, history, message) {
-  const response = await fetch('/api/functions', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ systemPrompt, history, message }),
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.error || 'Gemini devolvió un error.');
-  }
-
-  if (!data.reply) {
-    throw new Error('Gemini no devolvió una respuesta válida.');
-  }
-
-  return data.reply;
-}
-
 function updateChatHeading() {
   const heading = document.getElementById('chat-character-name');
   if (!heading) return;
 
   const character = selectedCharacterId ? getCharacterById(selectedCharacterId) : null;
-  heading.textContent = character
-    ? `Chateando con ${character.name}`
-    : 'Elegí un personaje para empezar';
+  heading.textContent = getChatHeadingText(character);
 }
 
 function renderMessages() {
@@ -121,8 +105,8 @@ async function handleChatSubmit(event) {
   if (!selectedCharacterId || isWaitingForReply) return;
 
   const input = document.getElementById('chat-input');
-  const text = input.value.trim();
-  if (!text) return;
+  if (!isValidMessage(input.value)) return;
+  const text = sanitizeMessage(input.value);
 
   const character = getCharacterById(selectedCharacterId);
   // Snapshot del historial ANTES de agregar el mensaje nuevo: el
