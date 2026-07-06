@@ -1,7 +1,7 @@
 {
-  "name": "peter-griffin-chat",
+  "name": "family-guy-chat",
   "version": "1.0.0",
-  "description": "SPA para chatear con Peter Griffin (Family Guy) usando Google Gemini AI.",
+  "description": "SPA para chatear con personajes de Family Guy (Peter, Stewie, Brian y Lois) usando Google Gemini AI.",
   "main": "src/app.js",
   "type": "module",
   "scripts": {
