@@ -216,6 +216,13 @@ ul {
   color: var(--color-text);
 }
 
+.message-error {
+  align-self: flex-start;
+  background-color: #fdecea;
+  border: 1px solid #f5b5ac;
+  color: #8a1f11;
+}
+
 .chat-form {
   display: flex;
   gap: 0.5rem;
