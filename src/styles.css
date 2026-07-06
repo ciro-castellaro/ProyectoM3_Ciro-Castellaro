@@ -223,6 +223,11 @@ ul {
   color: #8a1f11;
 }
 
+.message-typing {
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
 .chat-form {
   display: flex;
   gap: 0.5rem;
@@ -240,6 +245,12 @@ ul {
 .chat-input:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+}
+
+.chat-input:disabled,
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* ============================================
