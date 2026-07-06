@@ -13,11 +13,13 @@ const GEMINI_MODEL = "gemini-2.5-flash";
 
 // Gemini espera roles 'user' y 'model' en el historial de conversación;
 // nuestro chat local (Etapa 6) guarda los mensajes como 'user'/'character'.
-function mapRoleToGemini(role) {
+// Exportadas (no solo el handler) para poder testearlas de forma
+// aislada en la Etapa 12, sin necesitar mockear req/res.
+export function mapRoleToGemini(role) {
   return role === "user" ? "user" : "model";
 }
 
-function buildContents(history, message) {
+export function buildContents(history, message) {
   return [
     ...history.map((entry) => ({
       role: mapRoleToGemini(entry.role),
