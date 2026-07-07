@@ -1,6 +1,20 @@
 // Funciones utilitarias reutilizables: sin manipulación de DOM, para
 // que sean directamente testeables (Etapa 12).
 
+export const ROUTES = {
+  '/': 'home',
+  '/chat': 'chat',
+  '/about': 'about',
+};
+
+export const DEFAULT_PATH = '/';
+
+// Dado un path, resuelve a qué id de sección corresponde (o al de la
+// ruta por defecto si el path no es una ruta conocida).
+export function resolveActiveSectionId(path) {
+  return ROUTES[path] ?? ROUTES[DEFAULT_PATH];
+}
+
 export function getChatHeadingText(character) {
   return character
     ? `Chateando con ${character.name}`
