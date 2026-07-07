@@ -1,18 +1,11 @@
 // Punto de entrada de la aplicación — Routing SPA con History API (Etapa 5)
 
 import { initChat, selectCharacter, refreshChatView } from './chat.js';
-
-const ROUTES = {
-  '/': 'home',
-  '/chat': 'chat',
-  '/about': 'about',
-};
-
-const DEFAULT_PATH = '/';
+import { ROUTES, DEFAULT_PATH, resolveActiveSectionId } from './utils.js';
 
 function renderRoute() {
   const path = window.location.pathname;
-  const activeSectionId = ROUTES[path] ?? ROUTES[DEFAULT_PATH];
+  const activeSectionId = resolveActiveSectionId(path);
 
   document.querySelectorAll('.page').forEach((section) => {
     section.hidden = section.id !== activeSectionId;
