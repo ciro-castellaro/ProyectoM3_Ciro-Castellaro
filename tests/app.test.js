@@ -150,7 +150,10 @@ describe('handler (api/functions.js, con el SDK de Gemini mockeado)', () => {
       expect.objectContaining({
         model: expect.any(String),
         contents: expect.any(Array),
-        config: { systemInstruction: 'Sos un test' },
+        config: expect.objectContaining({
+          systemInstruction: 'Sos un test',
+          maxOutputTokens: expect.any(Number),
+        }),
       }),
     );
   });
