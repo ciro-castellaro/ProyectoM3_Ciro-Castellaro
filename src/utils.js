@@ -3,6 +3,7 @@
 
 export const ROUTES = {
   '/': 'home',
+  '/home': 'home',
   '/chat': 'chat',
   '/about': 'about',
 };
@@ -21,8 +22,18 @@ export function getChatHeadingText(character) {
     : 'Elegí un personaje para empezar';
 }
 
+// Límite de longitud de mensaje del lado del cliente. El servidor
+// (api/functions.js) valida el mismo límite de forma independiente,
+// porque un cliente malicioso podría llamar a /api/functions
+// directamente, saltándose cualquier validación del frontend.
+export const MAX_MESSAGE_LENGTH = 2000;
+
 export function isValidMessage(text) {
   return typeof text === 'string' && text.trim().length > 0;
+}
+
+export function isMessageTooLong(text, maxLength = MAX_MESSAGE_LENGTH) {
+  return typeof text === 'string' && text.trim().length > maxLength;
 }
 
 export function sanitizeMessage(text) {
