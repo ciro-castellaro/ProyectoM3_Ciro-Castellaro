@@ -11,6 +11,12 @@ import { GoogleGenAI } from "@google/genai";
 // que hay que cambiar para probar con otro.
 const GEMINI_MODEL = "gemini-2.5-flash";
 
+// Mismo límite que MAX_MESSAGE_LENGTH en src/utils.js. Se valida de
+// nuevo acá porque el cliente podría llamar a esta función
+// directamente (saltándose el frontend), así que no alcanza con la
+// validación del lado del navegador.
+const MAX_MESSAGE_LENGTH = 2000;
+
 // Gemini espera roles 'user' y 'model' en el historial de conversación;
 // nuestro chat local (Etapa 6) guarda los mensajes como 'user'/'character'.
 // Exportadas (no solo el handler) para poder testearlas de forma
@@ -49,6 +55,13 @@ export default async function handler(req, res) {
     res
       .status(400)
       .json({ error: "La solicitud debe incluir systemPrompt y message." });
+    return;
+  }
+
+  if (message.length > MAX_MESSAGE_LENGTH) {
+    res.status(400).json({
+      error: `El mensaje no puede superar los ${MAX_MESSAGE_LENGTH} caracteres.`,
+    });
     return;
   }
 
