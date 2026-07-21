@@ -17,6 +17,12 @@ const GEMINI_MODEL = "gemini-2.5-flash";
 // validación del lado del navegador.
 const MAX_MESSAGE_LENGTH = 2000;
 
+// Límite de tokens de la RESPUESTA de Gemini (no del mensaje que
+// mandamos nosotros). Sin esto, el modelo puede irse por las ramas y
+// devolver respuestas larguísimas, poco naturales para una burbuja
+// de chat.
+const MAX_OUTPUT_TOKENS = 200;
+
 // Gemini espera roles 'user' y 'model' en el historial de conversación;
 // nuestro chat local (Etapa 6) guarda los mensajes como 'user'/'character'.
 // Exportadas (no solo el handler) para poder testearlas de forma
@@ -73,6 +79,12 @@ export default async function handler(req, res) {
       contents: buildContents(history ?? [], message),
       config: {
         systemInstruction: systemPrompt,
+        maxOutputTokens: MAX_OUTPUT_TOKENS,
+        // Gemini 2.5 "piensa" internamente antes de responder, y esos
+        // tokens de pensamiento cuentan contra maxOutputTokens. Sin
+        // desactivarlo, la respuesta visible puede quedar cortada a
+        // mitad de frase. thinkingBudget: 0 lo desactiva por completo.
+        thinkingConfig: { thinkingBudget: 0 },
       },
     });
 
