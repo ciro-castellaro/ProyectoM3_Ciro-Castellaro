@@ -5,8 +5,10 @@ import { getCharacterById } from './characters.js';
 import {
   getChatHeadingText,
   isValidMessage,
+  isMessageTooLong,
   sanitizeMessage,
   fetchCharacterReply,
+  MAX_MESSAGE_LENGTH,
 } from './utils.js';
 
 // Historial en memoria, separado por personaje, para que cambiar de
@@ -106,6 +108,14 @@ async function handleChatSubmit(event) {
 
   const input = document.getElementById('chat-input');
   if (!isValidMessage(input.value)) return;
+
+  if (isMessageTooLong(input.value)) {
+    appendErrorBubble(
+      `Tu mensaje es demasiado largo (máximo ${MAX_MESSAGE_LENGTH} caracteres).`,
+    );
+    return;
+  }
+
   const text = sanitizeMessage(input.value);
 
   const character = getCharacterById(selectedCharacterId);
